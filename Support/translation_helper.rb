@@ -80,8 +80,8 @@ class TranslationHelper
   end
   
   def prompt_for_insertion_type
-    insertion_type = TextMate::UI.request_string(:title => 'Type', :prompt => 'Insert this as html, string, or ruby?', :default => self.preferences[:last_insertion_type])
-    # type = TextMate::UI.menu ["html","string","ruby"]
+    insertion_type = TextMate::UI.request_string(:title => 'Type', :prompt => 'Insert this as html, haml, string, or ruby?', :default => self.preferences[:last_insertion_type])
+    # type = TextMate::UI.menu ["html","string","ruby", "haml"]
     self.preferences[:last_insertion_type] = insertion_type #unless insertion_type.blank?
     
     return insertion_type
@@ -116,6 +116,8 @@ class TranslationHelper
         replacement = "<%=#{translation_method}(#{arguments}) %>"
       when 'string'
         replacement = "\#{#{translation_method}(#{arguments})}"
+      when 'haml'
+        replacement = "= #{translation_method}(#{arguments})"
       else
         replacement = "#{translation_method}(#{arguments})"
     end
